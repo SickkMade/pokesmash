@@ -39,7 +39,7 @@ startCall()
 
 function showNewImage(){ //determine where last poekmon goes... then show new one
   //const choice = document.querySelector('input').value.toLowerCase()
-  let max = 151
+  let max = 649
   let choice = getRandomPokeNumber(max)
   
  
@@ -57,6 +57,9 @@ function showNewImage(){ //determine where last poekmon goes... then show new on
       .then(data => {
         imageSrc = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
         pokeName = capitalizeFirstLetter(data['name'])
+        pokeCry = data['cries']['latest']
+
+        playSound(pokeCry)
 
         pokeCard = new PokemonInColumn(imageSrc, pokeName, 'mainSection')
         pokeCard.render()
@@ -148,4 +151,10 @@ function getRandomPokeNumber(max){
 
 function scrollToBottom(element) { //scrolls to bottom
     element.scrollTop = element.scrollTop;
+}
+
+function playSound(soundUrl) {
+    const audio = document.getElementById("soundPlayer");
+    audio.src = soundUrl;
+    audio.play();
 }
