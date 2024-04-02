@@ -71,25 +71,30 @@ img {
      position: absolute;
      width:20%;
      height:100dvh;
+     overflow-y:auto;
 }
-#passed{
+.passed{
      top: 0;
      left: 0;
      background-color: rgb(255, 145, 145);
 }
-#smashed{
+.smashed{
      top:0;
      left:80%;
      background-color: rgb(131, 255, 162);
 }
-#mainSection{
+.mainSection{
      position:absolute;
-     top:50dvh;
-     left:50dvw
+     top:50%;
+     left:50%;
 }
-#mainPhoto{
+.mainSection .card img{
      transform: scale(5);
-     margin-bottom:10vh
+     margin-bottom:10vh;
+     margin: 100px;
+}
+.mainSection{
+     transform: translate(-50%,-50%);
 }
 .card img{
      transform: scale(1);
