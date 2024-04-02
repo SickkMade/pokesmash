@@ -107,11 +107,26 @@ footer {
 #smash{
      color:red;
      font-size:300%;
+     position: absolute;
+     top:80%;
+     left:60%;
 }
 #pass{
      color:black;
+     position: absolute;
      font-size: 500%;
-     transform: translateY(40%);
+     top:80%;
+     left:30%;
+}
+#smash span{
+     position: absolute;
+     top:10%;
+     left:12%;
+}
+#pass span{
+     position: absolute;
+     top:-28%;
+     left:6%;
 }
 button{
      background: whitesmoke;

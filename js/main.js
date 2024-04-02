@@ -68,7 +68,7 @@ function showNewImage(){ //determine where last poekmon goes... then show new on
 }
 
 function placeAfterRating(e){
-    let newParentID = e.target.id+'ed' //ghetto ass shit right here
+    let newParentID = e.target.parentNode.id+'ed' //ghetto ass shit right here
 
     newPokemon = getLocalStorageList('mainSectionPokemon')
     newPokemon.parentID = newParentID
