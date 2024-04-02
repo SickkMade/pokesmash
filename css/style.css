@@ -57,14 +57,74 @@ footer {
 }
 
 /******************************************
+/* ICONS
+/*******************************************/
+.gg-heart,
+.gg-heart::after {
+    border: 2px solid;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    width: 10px;
+    height: 8px;
+    border-bottom: 0
+}
+.gg-heart {
+    box-sizing: border-box;
+    position: relative;
+    transform:
+        translate(
+            calc(-10px / 2 * var(--ggs,1)),
+            calc(-6px / 2 * var(--ggs,1))
+        )
+        rotate(-45deg)
+        scale(var(--ggs,1));
+    display: block
+}
+.gg-heart::after,
+.gg-heart::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute
+}
+.gg-heart::after {
+    right: -9px;
+    transform: rotate(90deg);
+    top: 5px
+}
+.gg-heart::before {
+    width: 11px;
+    height: 11px;
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    left: -2px;
+    top: 3px
+}
+
+/******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
+#smash{
+     color:red;
+     font-size:300%;
+}
+#pass{
+     color:black;
+     font-size: 500%;
+     transform: translateY(40%);
+}
+button{
+     background: whitesmoke;
+     height:50px;
+     width:50px;
+     border-radius: 500px;
+     border:black solid 1px;
+}
 img {
      image-rendering: -moz-crisp-edges;         /* Firefox */
      image-rendering: -o-crisp-edges;           /* Opera */
      image-rendering: -webkit-optimize-contrast;/* Webkit (Safari) */
      image-rendering: pixelated;                /* Chrome */
-     image-rendering: optimizeQuality;
      pointer-events: none;  
 }
 .col{
@@ -72,6 +132,7 @@ img {
      width:20%;
      height:100dvh;
      overflow-y:auto;
+     overflow:hidden;
 }
 .passed{
      top: 0;
@@ -87,18 +148,22 @@ img {
      position:absolute;
      top:50%;
      left:50%;
+     transform: translate(-50%,-50%);
+     border:3px solid black;
 }
 .mainSection .card img{
-     transform: scale(5);
+     height:200px;
      margin-bottom:10vh;
      margin: 100px;
+     background-color: lightblue;
+     border-radius:2px;
 }
-.mainSection{
-     transform: translate(-50%,-50%);
+.mainSection .card{
+     border: none;
 }
 .card img{
      transform: scale(1);
 }
 .card{
-     border:3px solid black;
+     border:2px solid black;
 }

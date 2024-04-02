@@ -8,15 +8,15 @@ class PokemonInColumn{
         const card = document.createElement('div');
         card.classList.add('card');
 
-        const image = document.createElement('img');
-        image.src = this.src;
-        card.appendChild(image);
-
         const heading = document.createElement('h1');
         heading.textContent = this.name;
         card.appendChild(heading);
 
-        document.querySelector('.'+this.parentID).appendChild(card);
+        const image = document.createElement('img');
+        image.src = this.src;
+        card.appendChild(image);
+
+        document.querySelector('.'+this.parentID).prepend(card);
     }
 }
 
@@ -74,7 +74,11 @@ function placeAfterRating(e){
     newPokemon.parentID = newParentID
 
     pokeCard = document.querySelector('.mainSection').querySelector('.card')
-    document.querySelector('.'+newPokemon.parentID).appendChild(pokeCard);
+    let col = document.querySelector('.'+newPokemon.parentID)
+
+    col.prepend(pokeCard);
+
+    scrollToBottom(col)
 
     addElementToLocalStorage(newPokemon, newPokemon.parentID+"Pokemon")
 } //DO THIS ON IMAGE CREATION!!! MAKE BIG ONE SMALL ONE? WE WILL SEe
@@ -92,7 +96,7 @@ function getRandomInt(min, max) {
 function addElementToLocalStorage(element, subIndex){ //push new id to local storage
     let value = JSON.parse(localStorage.getItem('pokemonLocalStorage'))
     if (Array.isArray(value[subIndex])){ //if array or just one
-        value[subIndex].push(element)
+        value[subIndex].unshift(element)
        
     }else{
         value[subIndex] = element
@@ -140,4 +144,8 @@ function getRandomPokeNumber(max){
         }
       }
     return choice
+}
+
+function scrollToBottom(element) { //scrolls to bottom
+    element.scrollTop = element.scrollTop;
 }
