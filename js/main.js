@@ -25,7 +25,6 @@ document.querySelectorAll('.smashOrPass').forEach(button => {
     button.addEventListener('click', e => {
         placeAfterRating(e);
         showNewImage();
-        randomizeBars();
     })
 })
 
@@ -62,6 +61,8 @@ function showNewImage(){ //determine where last poekmon goes... then show new on
 
         //maybe move some of these iinto funcs if they grow
 
+        audioSetUp(pokeCry)
+
         mainSectionChangeData(imageSrc, pokeName)
 
         pokeCard = new PokemonInColumn(imageSrc, pokeName, 'invisibleDiv', pokeCry)
@@ -74,7 +75,7 @@ function showNewImage(){ //determine where last poekmon goes... then show new on
 }
 
 function placeAfterRating(e){
-    let newParentID = e.target.parentNode.id+'ed' //ghetto ass shit right here
+    let newParentID = e.target.closest('button').id+'ed' //ghetto ass shit right here
 
     newPokemon = getLocalStorageList('mainSectionPokemon')
     newPokemon.parentID = newParentID
@@ -128,6 +129,7 @@ function startCall(){
         mainSectionChangeData(mainPokemon.src, mainPokemon.name)
         newCard = new PokemonInColumn(mainPokemon.src, mainPokemon.name, 'invisibleDiv', mainPokemon.soundUrl)
         newCard.render()
+        audioSetUp(mainPokemon.soundUrl)
     }
     
     document.querySelector('#playButton').addEventListener('mouseup', _ => {
@@ -135,7 +137,7 @@ function startCall(){
         playSound(soundUrl)
     })
 
-    createBars(12);
+    createBars(25);
 
     getLocalStorageList('smashedPokemon').forEach(card =>{
         newCard = new PokemonInColumn(card.src, card.name, card.parentID, card.soundUrl)
@@ -165,13 +167,6 @@ function scrollToBottom(element) { //scrolls to bottom
 
 function playSound(soundUrl) {
     const audio = document.getElementById("soundPlayer");
-    if(audio.src != soundUrl){ // if audio changes
-        audio.src = soundUrl;
-    }
-
-    audio.onloadedmetadata = _ =>{
-        console.log(Math.floor(audio.duration / 0.075));
-    }
 
     if(audio.paused){//if the audio is NOT playing
         audio.play();
@@ -195,10 +190,40 @@ function randomizeBars(){ //randomizes the height of the audio bars
         bars[i].style.height = getRandomInt(minHeight, maxHeight)+'px';
     }
 }
-function changeBarCount(){ //change the amount of bars, and width
+function changeBarCount(audioLen){ //change the amount of bars, and width
+    let barsDiv = document.querySelector('#bars'); //get amount of bars, invis or not
+    let bars = barsDiv.children;
+    const barsMin = 10;
 
+    //let barsDivWidth = parseInt(window.getComputedStyle(barsDiv).width);
+    //let barsMargin = 2 * parseInt(window.getComputedStyle(bars[0]).marginLeft)
+
+    if(audioLen > bars.length){ //make sure we aren't looping through too many
+        audioLen = bars.length;
+    }
+    else if(audioLen < barsMin){
+        audioLen = barsMin;
+    }
+    //check bars div width and change the bar count to audio length!, so if max
+    //bars is 12 then a long auido would be 12 bars and a short would be 4-5!
+    for(let i = 0; i < audioLen; i++){//from 0 to audioLen
+        bars[i].classList.remove('invisible');
+        //bars[i].style.width = ((barsDivWidth / audioLen) - barsMargin) +'px'; //might have to subtract margin
+    }
+    for(let i = audioLen; i < bars.length; i++){
+        bars[i].classList.add('invisible');
+    }
 }
 function mainSectionChangeData(imageSrc, pokeName){
     document.querySelector('#mainPhoto').src = imageSrc;
     document.querySelector('#mainPokeName').textContent = pokeName;
+}
+
+function audioSetUp(pokeCry){
+    audio = document.getElementById("soundPlayer")
+        audio.src = pokeCry
+        audio.onloadedmetadata = _ =>{
+            changeBarCount(Math.floor(audio.duration / 0.05));
+            randomizeBars();
+        }
 }
