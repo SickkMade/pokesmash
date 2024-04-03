@@ -178,6 +178,7 @@ function createBars(barCount){ //creates a new audio bar, used at start
     for(let i = 0; i < barCount; i++){
         let newBar = document.createElement('div');
         newBar.classList.add('audioBar');
+        newBar.classList.add('invisible');
         barDiv.append(newBar);
     }
     randomizeBars()
