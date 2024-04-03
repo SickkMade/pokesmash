@@ -57,48 +57,16 @@ footer {
 }
 
 /******************************************
-/* ICONS
+/* animations
 /*******************************************/
-.gg-heart,
-.gg-heart::after {
-    border: 2px solid;
-    border-top-left-radius: 100px;
-    border-top-right-radius: 100px;
-    width: 10px;
-    height: 8px;
-    border-bottom: 0
-}
-.gg-heart {
-    box-sizing: border-box;
-    position: relative;
-    transform:
-        translate(
-            calc(-10px / 2 * var(--ggs,1)),
-            calc(-6px / 2 * var(--ggs,1))
-        )
-        rotate(-45deg)
-        scale(var(--ggs,1));
-    display: block
-}
-.gg-heart::after,
-.gg-heart::before {
-    content: "";
-    display: block;
-    box-sizing: border-box;
-    position: absolute
-}
-.gg-heart::after {
-    right: -9px;
-    transform: rotate(90deg);
-    top: 5px
-}
-.gg-heart::before {
-    width: 11px;
-    height: 11px;
-    border-left: 2px solid;
-    border-bottom: 2px solid;
-    left: -2px;
-    top: 3px
+
+@keyframes audioProgressBar{
+     from {
+
+     }
+     to{
+
+     }
 }
 
 /******************************************
@@ -168,7 +136,7 @@ img {
 }
 .mainSection img{
      margin: 50%;
-     transform: translate(-50%, -50%) scale(5);
+     transform: translate(-50%, -150%) scale(5);
      border-radius:2px;
 }
 #photoBox{
@@ -214,7 +182,7 @@ img {
 .invisibleDiv *{
      opacity: 0;
 }
-.invisible{
-     opacity:0;
-     position:absolute;
+/* ?????????????????????????????????????????????????? */
+.smallBar{
+     height:5px !important;
 }

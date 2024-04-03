@@ -178,7 +178,7 @@ function createBars(barCount){ //creates a new audio bar, used at start
     for(let i = 0; i < barCount; i++){
         let newBar = document.createElement('div');
         newBar.classList.add('audioBar');
-        newBar.classList.add('invisible');
+        newBar.classList.add('smallBar');
         barDiv.append(newBar);
     }
     randomizeBars()
@@ -207,12 +207,13 @@ function changeBarCount(audioLen){ //change the amount of bars, and width
     }
     //check bars div width and change the bar count to audio length!, so if max
     //bars is 12 then a long auido would be 12 bars and a short would be 4-5!
-    for(let i = 0; i < audioLen; i++){//from 0 to audioLen
-        bars[i].classList.remove('invisible');
-        //bars[i].style.width = ((barsDivWidth / audioLen) - barsMargin) +'px'; //might have to subtract margin
+    for(let i = 0; i < bars.length; i++){
+        bars[i].classList.add('smallBar');
     }
-    for(let i = audioLen; i < bars.length; i++){
-        bars[i].classList.add('invisible');
+    let startPos = Math.floor((bars.length / 2) - (audioLen/2));
+    for(let i = startPos; i < startPos+audioLen; i++){//from 0 to audioLen
+        bars[i].classList.remove('smallBar');
+        //bars[i].style.width = ((barsDivWidth / audioLen) - barsMargin) +'px'; //might have to subtract margin
     }
 }
 function mainSectionChangeData(imageSrc, pokeName){
@@ -228,3 +229,14 @@ function audioSetUp(pokeCry){
             randomizeBars();
         }
 }
+
+
+/*
+ideas
+col has items fall down to bottom
+OR col has items slide in from top!?
+
+use a list of all the different hinge names for audio prompts and use
+a random one for each refresh!
+
+*/
