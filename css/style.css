@@ -196,7 +196,7 @@ img {
      display:flex;
      margin:0 auto 5% auto;
      position:absolute;
-     top:85%;
+     top:90%;
      left:50%;
      transform: translateX(-50%);
 }
@@ -216,4 +216,5 @@ img {
 }
 .invisible{
      opacity:0;
+     position:absolute;
 }

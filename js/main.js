@@ -137,7 +137,7 @@ function startCall(){
         playSound(soundUrl)
     })
 
-    createBars(25);
+    createBars(50);
 
     getLocalStorageList('smashedPokemon').forEach(card =>{
         newCard = new PokemonInColumn(card.src, card.name, card.parentID, card.soundUrl)
@@ -193,7 +193,7 @@ function randomizeBars(){ //randomizes the height of the audio bars
 function changeBarCount(audioLen){ //change the amount of bars, and width
     let barsDiv = document.querySelector('#bars'); //get amount of bars, invis or not
     let bars = barsDiv.children;
-    const barsMin = 10;
+    const barsMin = 15;
 
     //let barsDivWidth = parseInt(window.getComputedStyle(barsDiv).width);
     //let barsMargin = 2 * parseInt(window.getComputedStyle(bars[0]).marginLeft)
