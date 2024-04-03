@@ -1,8 +1,9 @@
 class PokemonInColumn{
-    constructor(src='#', name='blank-pokemon', parentID='#none'){ //gets name and image of pokemon
+    constructor(src='#', name='blank-pokemon', parentID='#none', soundUrl="shing a linga ding dong"){ //gets name and image of pokemon
         this.src = src
         this.name = name
         this.parentID = parentID //dom parent being appended to
+        this.soundUrl = soundUrl
     }
     render() {
         const card = document.createElement('div');
@@ -20,11 +21,11 @@ class PokemonInColumn{
     }
 }
 
-//Example fetch using pokemonapi.co
-document.querySelectorAll('button').forEach(button => {
+document.querySelectorAll('.smashOrPass').forEach(button => {
     button.addEventListener('click', e => {
-        placeAfterRating(e)
-        showNewImage()
+        placeAfterRating(e);
+        showNewImage();
+        randomizeBars();
     })
 })
 
@@ -44,7 +45,7 @@ function showNewImage(){ //determine where last poekmon goes... then show new on
   
  
   addElementToLocalStorage(choice, 'seenPokemon') //adds choice to seen pokemon
-  if (getLocalStorageLength('pokemonLocalStorage') == max){
+  if (getLocalStorageLength('pokemonLocalStorage') == max - 1){
     alert("FINISHED! CLEARING LOCAL STORAGE")
     localStorage.clear()
   }
@@ -59,9 +60,11 @@ function showNewImage(){ //determine where last poekmon goes... then show new on
         pokeName = capitalizeFirstLetter(data['name'])
         pokeCry = data['cries']['latest']
 
-        playSound(pokeCry)
+        //maybe move some of these iinto funcs if they grow
 
-        pokeCard = new PokemonInColumn(imageSrc, pokeName, 'mainSection')
+        mainSectionChangeData(imageSrc, pokeName)
+
+        pokeCard = new PokemonInColumn(imageSrc, pokeName, 'invisibleDiv', pokeCry)
         pokeCard.render()
         addElementToLocalStorage(pokeCard, 'mainSectionPokemon') //could be just url
       })
@@ -76,7 +79,7 @@ function placeAfterRating(e){
     newPokemon = getLocalStorageList('mainSectionPokemon')
     newPokemon.parentID = newParentID
 
-    pokeCard = document.querySelector('.mainSection').querySelector('.card')
+    pokeCard = document.querySelector('.invisibleDiv').querySelector('.card')
     let col = document.querySelector('.'+newPokemon.parentID)
 
     col.prepend(pokeCard);
@@ -116,23 +119,30 @@ function getLocalStorageLength(key){
 }
 
 function startCall(){
-    if(getLocalStorageList('mainSectionPokemon') == ''){
+    mainPokemon = getLocalStorageList('mainSectionPokemon');
+
+    if(mainPokemon == ''){
         showNewImage()
     }
     else{
-        mainPokemon = getLocalStorageList('mainSectionPokemon')
-        newCard = new PokemonInColumn(mainPokemon.src, mainPokemon.name, mainPokemon.parentID) //CHAT ILL FIX IT I SWEAR IM SORRY
+        mainSectionChangeData(mainPokemon.src, mainPokemon.name)
+        newCard = new PokemonInColumn(mainPokemon.src, mainPokemon.name, 'invisibleDiv', mainPokemon.soundUrl)
         newCard.render()
     }
     
-    
+    document.querySelector('#playButton').addEventListener('mouseup', _ => {
+        soundUrl = getLocalStorageList('mainSectionPokemon').soundUrl;
+        playSound(soundUrl)
+    })
+
+    createBars(12);
 
     getLocalStorageList('smashedPokemon').forEach(card =>{
-        newCard = new PokemonInColumn(card.src, card.name, card.parentID)
+        newCard = new PokemonInColumn(card.src, card.name, card.parentID, card.soundUrl)
         newCard.render()
     })
     getLocalStorageList('passedPokemon').forEach(card =>{
-        newCard = new PokemonInColumn(card.src, card.name, card.parentID)
+        newCard = new PokemonInColumn(card.src, card.name, card.parentID, card.soundUrl)
         newCard.render()
     })
     
@@ -155,6 +165,34 @@ function scrollToBottom(element) { //scrolls to bottom
 
 function playSound(soundUrl) {
     const audio = document.getElementById("soundPlayer");
-    audio.src = soundUrl;
-    audio.play();
+    if(audio.src != soundUrl){ // if audio changes
+        audio.src = soundUrl;
+    }
+    console.log(audio.paused)
+    if(audio.paused){//if the audio is NOT playing
+        audio.play();
+    }
+}
+
+function createBars(barCount){ //creates a new audio bar, used at start
+    let barDiv = document.querySelector('#bars')
+    for(let i = 0; i < barCount; i++){
+        let newBar = document.createElement('div');
+        newBar.classList.add('audioBar');
+        barDiv.append(newBar);
+    }
+    randomizeBars()
+}
+function randomizeBars(){ //randomizes the height of the audio bars
+    let bars = document.querySelector('#bars').children;
+    let maxHeight = 50;
+    let minHeight = 5;
+    for(let i = 0; i < bars.length; i++){
+        bars[i].style.height = getRandomInt(minHeight, maxHeight)+'px';
+    }
+}
+
+function mainSectionChangeData(imageSrc, pokeName){
+    document.querySelector('#mainPhoto').src = imageSrc;
+    document.querySelector('#mainPokeName').textContent = pokeName;
 }

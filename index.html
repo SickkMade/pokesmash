@@ -2,10 +2,10 @@
 <html lang="en">
 	<head>
     	<meta charset="utf-8">
-    	<meta name="description" content="Your description goes here">
+    	<meta name="description" content="do you love pokemon, uhh cause thats weird but okay">
     	<meta name="keywords" content="one, two, three">
 
-		<title>Blank Template</title>
+		<title>pokeSMASH</title>
 
 		<!-- external CSS link -->
 		<link rel="stylesheet" href="css/normalize.css">
@@ -13,17 +13,25 @@
 	</head>
 	<body>
 		<section class="mainSection">
-			<!-- <img class="mainPhoto" src="#">
+			<img id="mainPhoto" src="#">
 			
-			<h1 class="mainPokeName"></h1> -->
-			<button id="smash"><span>❤</span></button>
-			<button id="pass"><span>⨯</span></button>
+			<h1 id="mainPokeName"></h1>
+			<button class="smashOrPass" id="smash"><span>❤</span></button>
+			<button class="smashOrPass" id="pass"><span>⨯</span></button>
+			<!-- //holds the audio section -->
+			<div id="audioDiv"> 
+				<!-- //plays the audio -->
+				<button id="playButton"><span>▶</span></button> 
+				<!-- //holds the bars  -->
+				<div id="bars"></div> 
+			</div>
 		</section>
 		
 		<section class="smashed col"></section>
 		<section class="passed col"></section>
 
 		<audio id="soundPlayer"></audio>
+		<div class="invisibleDiv"></div>
 
 		<script type="text/javascript" src="js/main.js"></script>
 	</body>
