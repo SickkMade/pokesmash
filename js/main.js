@@ -168,7 +168,11 @@ function playSound(soundUrl) {
     if(audio.src != soundUrl){ // if audio changes
         audio.src = soundUrl;
     }
-    console.log(audio.paused)
+
+    audio.onloadedmetadata = _ =>{
+        console.log(Math.floor(audio.duration / 0.075));
+    }
+
     if(audio.paused){//if the audio is NOT playing
         audio.play();
     }
@@ -191,7 +195,9 @@ function randomizeBars(){ //randomizes the height of the audio bars
         bars[i].style.height = getRandomInt(minHeight, maxHeight)+'px';
     }
 }
+function changeBarCount(){ //change the amount of bars, and width
 
+}
 function mainSectionChangeData(imageSrc, pokeName){
     document.querySelector('#mainPhoto').src = imageSrc;
     document.querySelector('#mainPokeName').textContent = pokeName;
