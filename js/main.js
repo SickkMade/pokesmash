@@ -210,7 +210,8 @@ function changeBarCount(audioLen){ //change the amount of bars, and width
     for(let i = 0; i < bars.length; i++){
         bars[i].classList.add('smallBar');
     }
-    let startPos = Math.floor((bars.length / 2) - (audioLen/2));
+    let startPos = Math.floor((bars.length - audioLen));
+    startPos = getRandomInt(0, startPos);
     for(let i = startPos; i < startPos+audioLen; i++){//from 0 to audioLen
         bars[i].classList.remove('smallBar');
         //bars[i].style.width = ((barsDivWidth / audioLen) - barsMargin) +'px'; //might have to subtract margin
@@ -225,7 +226,7 @@ function audioSetUp(pokeCry){
     audio = document.getElementById("soundPlayer")
         audio.src = pokeCry
         audio.onloadedmetadata = _ =>{
-            changeBarCount(Math.floor(audio.duration / 0.05));
+            changeBarCount(Math.floor(audio.duration / 0.04));
             randomizeBars();
         }
 }
