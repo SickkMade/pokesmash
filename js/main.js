@@ -59,12 +59,14 @@ function showNewImage(){ //determine where last poekmon goes... then show new on
         pokeName = capitalizeFirstLetter(data['name'])
         pokeCry = data['cries']['latest']
 
-        //maybe move some of these iinto funcs if they grow
-
+        //sets up audio
         audioSetUp(pokeCry)
 
+        // changes the image and the name of pokemon in main section
         mainSectionChangeData(imageSrc, pokeName)
 
+        //creates a pokemon and makes it invis, then when smashed or passed it's
+        //put into a column
         pokeCard = new PokemonInColumn(imageSrc, pokeName, 'invisibleDiv', pokeCry)
         pokeCard.render()
         addElementToLocalStorage(pokeCard, 'mainSectionPokemon') //could be just url
@@ -198,7 +200,7 @@ function randomizeBars(){ //randomizes the height of the audio bars
 function changeBarCount(audioLen){ //change the amount of bars, and width
     let barsDiv = document.querySelector('#bars'); //get amount of bars, invis or not
     let bars = barsDiv.children;
-    const barsMin = 15;
+    const barsMin = 1;
 
     //let barsDivWidth = parseInt(window.getComputedStyle(barsDiv).width);
     //let barsMargin = 2 * parseInt(window.getComputedStyle(bars[0]).marginLeft)
@@ -211,14 +213,15 @@ function changeBarCount(audioLen){ //change the amount of bars, and width
     }
     //check bars div width and change the bar count to audio length!, so if max
     //bars is 12 then a long auido would be 12 bars and a short would be 4-5!
-    for(let i = 0; i < bars.length; i++){
-        bars[i].classList.add('smallBar');
-    }
-    let startPos = Math.floor((bars.length - audioLen));
-    startPos = getRandomInt(0, startPos);
-    for(let i = startPos; i < startPos+audioLen; i++){//from 0 to audioLen
+
+    // let startPos = Math.floor((bars.length - audioLen));
+    // startPos = getRandomInt(0, startPos);
+    for(let i = 0; i < audioLen; i++){//from 0 to audioLen
         bars[i].classList.remove('smallBar');
         //bars[i].style.width = ((barsDivWidth / audioLen) - barsMargin) +'px'; //might have to subtract margin
+    }
+    for(let i = audioLen; i < bars.length; i++){
+        bars[i].classList.add('smallBar');
     }
 }
 function mainSectionChangeData(imageSrc, pokeName){
@@ -241,7 +244,6 @@ function changeBarsBg(audio){
         bars[i].style.background = 'gray';
         setTimeout(_ => {
             bars[i].style.background = 'purple';
-            console.log((Number(audio.duration) / bars.length) * i)
         }, (Number(audio.duration) / bars.length) * i * 1000)
         //bars[i].style.transition = `background-color ${(Number(audio.duration) / bars.length) * i* 5}s`; //change 50 to bar pls
     }

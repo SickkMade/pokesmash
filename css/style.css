@@ -41,7 +41,9 @@ body {
      color: #000;
      font-size: 12px;
      line-height: 1.4;
-     font-family: Helvetica, Arial, sans-serif;
+     font-family: "IBM Plex Sans", sans-serif;
+     font-weight: 600;
+     font-style: normal;
 }
 
 
@@ -135,6 +137,9 @@ img {
      transform: translate(-50%,-50%);
      border:3px solid black;
 }
+#mainPokeName{
+     
+}
 .mainSection img{
      margin: 50%;
      transform: translate(-50%, -150%) scale(5);
@@ -145,6 +150,7 @@ img {
      height:500px;
      border:black solid 1px;
      background:lightcyan;
+     border-radius:10px;
 }
 .mainSection .card{
      border: none;
@@ -160,6 +166,7 @@ img {
      width:4px;
      margin: 0 1px;
      border-radius: 10px;
+     transition: height 1s ease-out;
 }
 #audioDiv{
      display:flex;
