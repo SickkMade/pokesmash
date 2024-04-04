@@ -134,7 +134,7 @@ function startCall(){
     
     document.querySelector('#playButton').addEventListener('mouseup', _ => {
         soundUrl = getLocalStorageList('mainSectionPokemon').soundUrl;
-        playSound(soundUrl)
+        playSound()
     })
 
     createBars(50);
@@ -165,8 +165,10 @@ function scrollToBottom(element) { //scrolls to bottom
     element.scrollTop = element.scrollTop;
 }
 
-function playSound(soundUrl) {
+function playSound() {
     const audio = document.getElementById("soundPlayer");
+
+    changeBarsBg(audio)
 
     if(audio.paused){//if the audio is NOT playing
         audio.play();
@@ -179,6 +181,7 @@ function createBars(barCount){ //creates a new audio bar, used at start
         let newBar = document.createElement('div');
         newBar.classList.add('audioBar');
         newBar.classList.add('smallBar');
+
         barDiv.append(newBar);
     }
     randomizeBars()
@@ -189,6 +192,7 @@ function randomizeBars(){ //randomizes the height of the audio bars
     let minHeight = 5;
     for(let i = 0; i < bars.length; i++){
         bars[i].style.height = getRandomInt(minHeight, maxHeight)+'px';
+        bars[i].style.background = 'gray';
     }
 }
 function changeBarCount(audioLen){ //change the amount of bars, and width
@@ -229,6 +233,18 @@ function audioSetUp(pokeCry){
             changeBarCount(Math.floor(audio.duration / 0.04));
             randomizeBars();
         }
+}
+
+function changeBarsBg(audio){
+    let bars = document.querySelector('#bars').children;
+    for (let i = 0; i < bars.length; i++){
+        bars[i].style.background = 'gray';
+        setTimeout(_ => {
+            bars[i].style.background = 'purple';
+            console.log((Number(audio.duration) / bars.length) * i)
+        }, (Number(audio.duration) / bars.length) * i * 1000)
+        //bars[i].style.transition = `background-color ${(Number(audio.duration) / bars.length) * i* 5}s`; //change 50 to bar pls
+    }
 }
 
 
