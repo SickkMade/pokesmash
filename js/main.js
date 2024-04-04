@@ -170,9 +170,10 @@ function scrollToBottom(element) { //scrolls to bottom
 function playSound() {
     const audio = document.getElementById("soundPlayer");
 
-    changeBarsBg(audio)
+    
 
     if(audio.paused){//if the audio is NOT playing
+        changeBarsBg(audio)
         audio.play();
     }
 }
@@ -231,11 +232,12 @@ function mainSectionChangeData(imageSrc, pokeName){
 
 function audioSetUp(pokeCry){
     audio = document.getElementById("soundPlayer")
-        audio.src = pokeCry
-        audio.onloadedmetadata = _ =>{
-            changeBarCount(Math.floor(audio.duration / 0.04));
-            randomizeBars();
-        }
+    audio.volume = .2;
+    audio.src = pokeCry
+    audio.onloadedmetadata = _ =>{
+        changeBarCount(Math.floor(audio.duration / 0.04));
+        randomizeBars();
+    }
 }
 
 function changeBarsBg(audio){

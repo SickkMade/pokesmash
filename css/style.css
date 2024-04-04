@@ -137,8 +137,11 @@ img {
      transform: translate(-50%,-50%);
      border:3px solid black;
 }
-#mainPokeName{
-     
+#verified{
+     color:purple;
+}
+#nameDiv{
+     margin-left:7%;
 }
 .mainSection img{
      margin: 50%;
