@@ -243,9 +243,14 @@ function audioSetUp(pokeCry){
 function changeBarsBg(audio){
     let bars = document.querySelector('#bars').children;
     for (let i = 0; i < bars.length; i++){
-        bars[i].style.background = 'gray';
+        bars[i].style.background = 'gray'; 
         setTimeout(_ => {
-            bars[i].style.background = 'purple';
+            if(i==0){ //clunky
+                bars[i].style.background = 'purple';
+            }
+            else if (bars[i-1].style.background == 'purple'){
+                bars[i].style.background = 'purple';
+            } 
         }, (Number(audio.duration) / bars.length) * i * 1000)
         //bars[i].style.transition = `background-color ${(Number(audio.duration) / bars.length) * i* 5}s`; //change 50 to bar pls
     }
